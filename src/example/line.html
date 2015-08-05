@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>line charts</title>
+  <style>
+  .charts {margin: 10px;}
+  </style>
+</head>
+<body>
+<div class='charts' id="line1"></div>
+<div class='charts' id="line2"></div>
+<div class='charts' id="line3"></div>
+<script src="../vendor/jquery.js"></script>
+<script src="../vendor/raphael.js"></script>
+<script src="../src/linechart.js"></script>
+<script>
+var generateData = function(min, max, len){
+  var arr = [];
+  for (var i = 0; i < len; i++) {
+    arr.push(Math.random()*(max - min) + min);
+  };
+  return arr;
+}
+
+var line1 = new Linechart({
+    container: document.getElementById('line1'),
+    width: 489,
+    height: 200,
+    maxYval: 100,
+    maxYnum: 5,
+    labelUnit: '%'
+});
+line1.update(generateData(0,100, 10));
+
+
+var line2 = new Linechart({
+    container: document.getElementById('line2'),
+    width: 489,
+    height: 200,
+    maxYval: 100,
+    maxYnum: 5,
+    labelUnit: '%',
+    lineColor: ["#33cc33","#2673BF"],
+    dotColor: ["#33cc33","#2673BF"],
+    areaColor: ["rgba(53,204,53,0.4)","rgba(38,115,191,0.4)"]
+});
+line2.updateMutil(generateData(0,100, 10), generateData(0,50, 10));
+
+
+var line1 = new Linechart({
+    container: document.getElementById('line3'),
+    width: 489,
+    height: 200,
+    maxYval: 100,
+    maxYnum: 5,
+    labelUnit: '%'
+});
+
+var count = 0,
+  timer = setInterval(function(){
+    count ++;
+    line1.update(generateData(0,100, 10));
+    if (count >= 20) {
+      clearInterval(timer);
+    }
+  }, 1000);
+</script>
+</body>
+</html>
